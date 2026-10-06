@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>Mi Tienda Virtual</title>
+    <style>
+      .pantalla-completa {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .barra-superior {
+        height: 70px;
+        background-color: darkkhaki;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 20px;
+      }
+      .area-contenido {
+        background-color: lightblue;
+        flex: 1;
+        display: flex;
+      }
+      .busqueda {
+        height: 35px;
+        flex: 1;
+      }
+      .filtros {
+        width: 250px;
+        background-color: aquamarine;
+      }
+      .catalogo {
+        background-color: blueviolet;
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .producto {
+        width: 150px;
+        height: 200px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+      .producto:hover {
+        transform: scale(1.05);
+      }
+      .foto-producto {
+        height: 140px;
+        background-color: lightgray;
+        background-image: url(https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300);
+        background-size: cover;
+        background-position: center;
+      }
+      .info-producto {
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+      }
+      @media (max-width: 768px) {
+        .area-contenido {
+          flex-direction: column;
+        }
+        .filtros {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pantalla-completa">
+      <header class="barra-superior">
+        <div class="logo">Logo</div>
+        <input class="busqueda" type="text" />
+        <div class="carrito">Carrito</div>
+      </header>
+      <main class="area-contenido">
+        <aside class="filtros"></aside>
+        <div class="catalogo">
+          <div class="producto">
+            <div class="foto-producto"></div>
+            <div class="info-producto">Zapatillas - $50</div>
+          </div>
+          <div class="producto">Producto</div>
+          <div class="producto">Producto</div>
+          <div class="producto">Producto</div>
+          <div class="producto">Producto</div>
+          <div class="producto">Producto</div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
