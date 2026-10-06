@@ -1,36 +1,127 @@
 <!doctype html>
 <html lang="es">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mi Tienda Virtual</title>
     <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
       .pantalla-completa {
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
+
       .barra-superior {
         height: 70px;
-        background-color: darkkhaki;
+        background-color: #111827; 
+        color: #ffffff;
         display: flex;
         align-items: center;
         padding: 0 20px;
         gap: 20px;
+        position: relative;
       }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .logo {
+        font-size: 1.2rem;
+        color: #ffffff;
+      }
+
+      .busqueda {
+        height: 38px;
+        flex: 1;
+        padding: 0 12px;
+        border: 1px solid #374151;
+        border-radius: 6px;
+        outline: none;
+      }
+
+      .carrito {
+        font-weight: bold;
+        cursor: pointer;
+        color: #ffffff;
+      }
+
+      .carrito:hover {
+        color: #dc2626;
+      }
+
+      .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #dc2626;
+      }
+
+      .nav-links {
+        display: none;
+        list-style: none;
+        flex-direction: column;
+        background-color: #111827;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+
+      .nav-links li {
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: bold;
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        color: #dc2626; 
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
       .area-contenido {
-        background-color: lightblue;
+        background-color: #f9fafb;
         flex: 1;
         display: flex;
       }
-      .busqueda {
-        height: 35px;
-        flex: 1;
-      }
+
       .filtros {
         width: 250px;
-        background-color: aquamarine;
+        background-color: #ffffff;
+        border-right: 1px solid #e5e7eb;
+        padding: 20px;
+        color: #1f2937;
+        font-weight: bold;
       }
+
       .catalogo {
-        background-color: blueviolet;
+        background-color: #f3f4f6;
         flex: 1;
         padding: 20px;
         display: flex;
@@ -39,35 +130,68 @@
         align-items: center;
         flex-wrap: wrap;
       }
+
       .producto {
-        width: 150px;
-        height: 200px;
-        background-color: white;
+        width: 160px;
+        height: 210px;
+        background-color: #ffffff;
         border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
         overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
+
       .producto:hover {
-        transform: scale(1.05);
+        transform: translateY(-4px);
+        box-shadow: 0px 6px 12px rgba(220, 38, 38, 0.2); 
       }
+
       .foto-producto {
         height: 140px;
-        background-color: lightgray;
+        background-color: #e5e7eb;
         background-image: url(https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300);
         background-size: cover;
         background-position: center;
       }
+
       .info-producto {
-        padding: 10px;
+        padding: 12px;
         display: flex;
         justify-content: center;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #dc2626;
       }
+
       @media (max-width: 768px) {
         .area-contenido {
           flex-direction: column;
         }
+
         .filtros {
           width: 100%;
+          border-right: none;
+          border-bottom: 1px solid #e5e7eb;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .menu-toggle {
+          display: none;
+        }
+
+        .nav-links {
+          display: flex !important;
+          position: static;
+          flex-direction: row;
+          gap: 15px;
+          box-shadow: none;
+          padding: 0;
+          width: auto;
+        }
+
+        .nav-links li {
+          padding: 0;
         }
       }
     </style>
@@ -75,24 +199,42 @@
   <body>
     <div class="pantalla-completa">
       <header class="barra-superior">
-        <div class="logo">Logo</div>
-        <input class="busqueda" type="text" />
-        <div class="carrito">Carrito</div>
+        <nav class="navbar">
+          <div class="logo"><strong>MiTienda</strong></div>
+          <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </nav>
+        <input class="busqueda" type="text" placeholder="Buscar productos..." />
+        <div class="carrito">🛒 Carrito</div>
       </header>
+
       <main class="area-contenido">
-        <aside class="filtros"></aside>
+        <aside class="filtros">Filtros</aside>
         <div class="catalogo">
           <div class="producto">
             <div class="foto-producto"></div>
             <div class="info-producto">Zapatillas - $50</div>
           </div>
-          <div class="producto">Producto</div>
-          <div class="producto">Producto</div>
-          <div class="producto">Producto</div>
-          <div class="producto">Producto</div>
-          <div class="producto">Producto</div>
+          <div class="producto"><div class="info-producto">Producto</div></div>
+          <div class="producto"><div class="info-producto">Producto</div></div>
+          <div class="producto"><div class="info-producto">Producto</div></div>
+          <div class="producto"><div class="info-producto">Producto</div></div>
+          <div class="producto"><div class="info-producto">Producto</div></div>
         </div>
       </main>
     </div>
+
+    <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+    </script>
   </body>
 </html>
